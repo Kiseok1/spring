@@ -19,24 +19,29 @@ public class MemberController {
 		return "member/memberInsert";
 	}
 	
+	//데이터 받는 방법
+	//방법 1. 객체
+	//방법 2. @RequestParam, 변수
+	//방법 3. 기존방법(HttpServletRequest)
+	
 	//방법1
 	@RequestMapping("doMInsert")
 	public String doMInsert(MemberDto mdto, Model model) {
-		
+		System.out.println("controller hobby : "+mdto.getHobby());
 		model.addAttribute("mdto",mdto);
 		return "member/memberView";
 	}
 
 	//방법2
 //	@RequestMapping("doMInsert")
-//	public String doMInsert(String id,String pw, String name, String phone, String gender, String[] hobby, Model model) {
+//	public String doMInsert(@RequestParam("id") String uid, String pw, String name, String phone, String gender, String[] hobby, Model model) {
 //		String hobbys = "";
 //		for (int i=0;i<hobby.length;i++) {
 //			if (i==0) hobbys=hobby[i];
 //			else hobbys+=","+hobby[i];
 //		}
 //		
-//		MemberDto mdto = MemberDto.builder().id(id).pw(pw).name(name).phone(phone).gender(gender).hobby(hobbys).build();
+//		MemberDto mdto = MemberDto.builder().id(uid).pw(pw).name(name).phone(phone).gender(gender).hobby(hobbys).build();
 //		
 //		model.addAttribute("mdto",mdto);
 //		return "member/memberView";
@@ -98,5 +103,12 @@ public class MemberController {
 
 		model.addAttribute("mdto",mdto);
 		return "member/memberUpdate";
+	}
+	
+	@RequestMapping("mView")
+	public String mView(MemberDto mdto, Model model) {
+		
+		model.addAttribute("mdto",mdto);
+		return "member/memberView";
 	}
 }

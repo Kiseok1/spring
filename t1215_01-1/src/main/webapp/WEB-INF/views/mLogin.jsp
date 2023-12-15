@@ -34,18 +34,24 @@
 	   <h1>회원정보보기</h1>
 		   <table>
 		   	<form name="mFrm" method="post" action="mUpdate">
+		   		<input type="hidden" name="id" value="${mdto.id}">
+		   		<input type="hidden" name="pw" value="${mdto.pw}">
+		   		<input type="hidden" name="name" value="${mdto.name}">
+		   		<input type="hidden" name="phone" value="${mdto.phone}">
+		   		<input type="hidden" name="gender" value="${mdto.gender}">
+		   		<input type="hidden" name="hobby" value="${mdto..hobby}">
 		     <colgroup>
 		       <col width="20%">
 		       <col width="80%">
 		     </colgroup>
 		     <tr>
 		       <th>아이디</th>
-		       <td><input type="text" name="id" value="${mdto.id}"></td>
+		       <td><input type="text" name="id" value="${id}"></td>
 		       <%-- <td>${mdto.id}</td> --%>
 		     </tr>
 		     <tr>
 		       <th>패스워드</th>
-		       <td><input type="text" name="pw" value="${mdto.pw}"></td>
+		       <td><input type="text" name="pw" value="${pw}"></td>
 		     </tr>
 		     <tr>
 		       <th>이름</th>
