@@ -24,5 +24,8 @@ public interface BoardMapper {
 	//게시글 저장
 	int bInsert(BoardDto bdto);
 
+	//게시글 삭제
+	int bDelete(int bno);
+
 	
 }

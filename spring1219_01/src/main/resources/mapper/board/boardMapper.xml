@@ -35,9 +35,15 @@
 		(select * from board order by bgroup desc, bstep asc) a ) where bno=#{bno} )-1
 	</select>
 	
+	<!-- 게시글 저장 -->
 	<insert id="bInsert">
 		insert into board values(board_seq.nextval,#{btitle},#{bcontent},sysdate,
 		#{id},board_seq.currval,0,0,1,#{bfile} )
 	</insert>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="bDelete">
+		delete board where bno=#{bno}
+	</delete>
  	
 </mapper>

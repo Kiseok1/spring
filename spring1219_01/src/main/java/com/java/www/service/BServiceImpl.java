@@ -42,7 +42,15 @@ public class BServiceImpl implements BService {
 	@Override
 	public void bInsert(BoardDto bdto) {
 		int result = boardMapper.bInsert(bdto);
-		System.out.println("BServiceImpl result "+result);
+		System.out.println("BServiceImpl bInsert result "+result);
+	}
+
+	//게시글 삭제
+	@Override
+	public void bDelete(int bno) {
+		int result = boardMapper.bDelete(bno);
+		System.out.println("BServiceImpl bDelete result "+result);
+		
 	}
 
 }

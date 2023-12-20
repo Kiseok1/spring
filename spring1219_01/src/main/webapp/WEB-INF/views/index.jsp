@@ -22,15 +22,16 @@
 				<li><strong style="font-size:20px;">${session_name} 님 환영합니다.</strong></li>
 				<a href="member/logout"><li>로그아웃</li>
 			</c:if>
-			
-			<a href="board/bInsert2"><li>다중업로드</li>
-			<a href="board/bList2"><li>다중업로드리스트(list)</li>
-			<br>
 			<a href="board/bList"><li>공지사항리스트(list)</li>
 			<a href="mInsert"><li>회원가입</li>
 			<a href="boardBno"><li>글번호</li>
 			<a href="bInsert"><li>글쓰기(insert)</li>
 			<a href="bView"><li>공지사항보기(view)</li>
+			
+			
+			<br>
+			<a href="board/bInsert2"><li>다중업로드</li>
+			<a href="board/bList2"><li>다중업로드리스트(list)</li>
 		</ul>
 	
 	</body>

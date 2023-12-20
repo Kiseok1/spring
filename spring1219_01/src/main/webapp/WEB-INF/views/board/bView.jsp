@@ -18,14 +18,9 @@
 <body>
 <section>
     <h1>NOTICE</h1>
-	<form action="bUpdate" name="bFrm" method="post">
-	<input type="hidden" name="bno" value="">
-	<input type="hidden" name="btitle" value="">
-	<input type="hidden" name="bcontent" value="">
-	<input type="hidden" name="id" value="">
-	<input type="hidden" name="bhit" value="">
-	<input type="hidden" name="bfile" value="">
-    <table>
+	<form action="" id="bFrm" name="bFrm" method="post">
+	<input type="hidden" name="bno" value="${map.bdto.bno}">
+	<table>
       <colgroup>
         <col width="15%">
         <col width="50%">
@@ -92,18 +87,25 @@
     </table>
 	<script>
 		$(function(){
-			$("#bupdateBtn").click(function(){
+			$("#updateBtn").click(function(){
 				alert("수정페이지로 이동합니다.");
-				bFrm.submit();
-			})
-		});
+				$("#bFrm").attr("action","bUpdate").submit();
+			});
+			
+			$(".delBtn").click(function(){
+				if(confirm("게시글을 삭제하시겠습니까?")){
+					$("#bFrm").attr("action","bDelete").submit();
+				};
+			});
+			
+		});//jquery
 	
 	</script>
 
 
     <a href="bList"><div class="list">목록</div></a>
-    <a href=""><div class="list">삭제</div></a>
-    <div class="list" id="bupdateBtn">수정</div>
+    <div class="list delBtn" style="cursor:pointer;">삭제</div>
+    <div class="list" id="updateBtn">수정</div>
     <a href=""><div class="list">답변달기</div></a>
     </form>
   </section>

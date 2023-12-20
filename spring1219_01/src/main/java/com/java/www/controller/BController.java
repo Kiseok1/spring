@@ -3,6 +3,7 @@ package com.java.www.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +78,42 @@ public class BController {
 		
 		return "board/doBInsert";
 	}//bInsert
+	
+	@PostMapping("bDelete") //게시글 삭제
+	public String bDelete(@RequestParam(defaultValue = "1")int bno) {
+		System.out.println("BController bDelete bno : "+bno);
+		bService.bDelete(bno);
+		
+		return "board/bDelete";
+	}//bDelete
+	
+	
+	@PostMapping("bUpdate") //게시글 수정 페이지 보기
+	public String bUpdate(@RequestParam(defaultValue = "1")int bno,Model model) {
+		System.out.println("BController bUpdate bno : "+bno);
+		Map<String, Object> map = bService.selectOne(bno);
+		model.addAttribute("map",map);
+		return "board/bUpdate";
+	}//bUpdate
+	
+	@PostMapping("doBUpdate") //게시글 수정 페이지 보기
+	public String doBUpdate(BoardDto dto,@RequestPart MultipartFile files) {
+		
+		
+		return "board/doBUpdate";
+	}//bUpdate
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//-------------------다중 업로드---------------------
 	

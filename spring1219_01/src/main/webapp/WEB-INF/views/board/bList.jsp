@@ -16,7 +16,7 @@
 </head>
 <body>
 <section>
-    <h1>NOTICE</h1>
+    <h1><a href="/">NOTICE</a></h1>
     <div class="wrapper">
       <form action="/search" name="search" method="post">
         <select name="category" id="category">
