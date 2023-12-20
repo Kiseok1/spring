@@ -19,4 +19,10 @@ public interface BService {
 	//게시글 삭제
 	void bDelete(int bno);
 
+	//게시글 수정저장
+	void doBUpdate(BoardDto bdto);
+
+	//답변달기 저장
+	void doBReply(BoardDto bdto);
+
 }

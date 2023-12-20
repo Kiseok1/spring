@@ -87,7 +87,7 @@
     </table>
 	<script>
 		$(function(){
-			$("#updateBtn").click(function(){
+			$(".updateBtn").click(function(){
 				alert("수정페이지로 이동합니다.");
 				$("#bFrm").attr("action","bUpdate").submit();
 			});
@@ -98,6 +98,10 @@
 				};
 			});
 			
+			//답변달기 페이지 이동
+			$(".replyBtn").click(function(){
+				$("#bFrm").attr("action","bReply").submit();
+			});
 		});//jquery
 	
 	</script>
@@ -105,8 +109,15 @@
 
     <a href="bList"><div class="list">목록</div></a>
     <div class="list delBtn" style="cursor:pointer;">삭제</div>
-    <div class="list" id="updateBtn">수정</div>
-    <a href=""><div class="list">답변달기</div></a>
+   	<div class="list updateBtn">수정</div>
+   <div class="list replyBtn">답변달기</div>
+
+   	<c:if test="${session_id==map.bdto.id}">
+   	</c:if>
+    
+	<c:if test="${session_id!=null}">
+	</c:if>
+
     </form>
   </section>
 </body>

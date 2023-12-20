@@ -30,6 +30,9 @@ public class BServiceImpl implements BService {
 		BoardDto prevdto = boardMapper.selectOnePrev(bno);
 		BoardDto nextdto = boardMapper.selectOneNext(bno);
 		
+		//조회수 1증가
+		boardMapper.bhitUP(bno);
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("bdto", bdto);
 		map.put("prevdto", prevdto);
@@ -50,6 +53,29 @@ public class BServiceImpl implements BService {
 	public void bDelete(int bno) {
 		int result = boardMapper.bDelete(bno);
 		System.out.println("BServiceImpl bDelete result "+result);
+		
+	}
+
+	//게시글 수정
+	@Override
+	public void doBUpdate(BoardDto bdto) {
+		int result = boardMapper.doBUpdate(bdto);
+		System.out.println("BServiceImpl doBUpdate result "+result);
+	}
+
+	//답변달기 저장
+	@Override
+	public void doBReply(BoardDto bdto) {
+		//bgroup,bstep,bindent
+		//1. 부모보다 큰 bstep은 1씩 증가시킴
+		//2. 답변달기 글의 bstep은 부모의 bstep+1
+		//3. 답변달기 글의 bindent 부모의 bindent+1
+		//4. bgroup은 부모와 같음
+		
+		//1
+		boardMapper.bstepUP(bdto);
+		int result = boardMapper.doBReply(bdto);
+		System.out.println("BServiceImpl doBReply result "+result);
 		
 	}
 

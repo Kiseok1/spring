@@ -35,6 +35,10 @@
 		(select * from board order by bgroup desc, bstep asc) a ) where bno=#{bno} )-1
 	</select>
 	
+	<update id="bhitUP">
+		update board set bhit=bhit+1 where bno=#{bno}
+	</update>
+	
 	<!-- 게시글 저장 -->
 	<insert id="bInsert">
 		insert into board values(board_seq.nextval,#{btitle},#{bcontent},sysdate,
@@ -45,5 +49,23 @@
 	<delete id="bDelete">
 		delete board where bno=#{bno}
 	</delete>
+	
+	<!-- 게시글 수정 -->
+	<update id="doBUpdate">
+		update board set btitle=#{btitle}, bcontent=#{bcontent}, bdate=sysdate,
+		bfile=#{bfile} where bno=#{bno}
+	</update>
+	
+	<!-- 답변달기 - 기존글 bstep 1증가 -->
+	<update id="bstepUP">
+		update board set bstep=bstep+1 where bgroup=#{bgroup} and bstep>#{bstep}
+	</update>
+	
+	<!-- 답변달기 - 답변달기 저장 -->
+	<insert id="doBReply">
+		insert into board values(board_seq.nextval,#{btitle},#{bcontent},sysdate,
+		#{id},#{bgroup},#{bstep}+1,#{bindent}+1,1,#{bfile} )
+	</insert>
+	
  	
 </mapper>
