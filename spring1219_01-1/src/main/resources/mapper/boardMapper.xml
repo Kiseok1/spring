@@ -10,7 +10,13 @@
 		select * from (select rownum rnum, a.* from
 		(select * from board 
 		<if test="category=='all'">
-			where btitle like '		
+			where btitle like '%'||#{searchWord}||'%' or bcontent like '%'||#{searchWord}||'%'	
+		</if>
+		<if test="category=='btitle'">
+			where btitle like '%'||#{searchWord}||'%' 	
+		</if>
+		<if test="category=='bcontent'">
+			where bcontent like '%'||#{searchWord}||'%' 	
 		</if>
 		order by bgroup desc, bstep asc) a )
 		where rnum between #{startRow} and #{endRow}
@@ -18,6 +24,16 @@
 	
 	<select id="countAll" resultType="int">
 		select count(*) from board
+		<if test="category=='all'">
+			where btitle like '%'||#{searchWord}||'%' or bcontent like '%'||#{searchWord}||'%'	
+		</if>
+		<if test="category=='btitle'">
+			where btitle like '%'||#{searchWord}||'%' 	
+		</if>
+		<if test="category=='bcontent'">
+			where bcontent like '%'||#{searchWord}||'%' 	
+		</if>
+		
 	</select>
 	
 	<select id="selectOne" resultType="com.java.www.dto.BoardDto">

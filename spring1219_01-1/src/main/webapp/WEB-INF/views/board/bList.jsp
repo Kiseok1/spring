@@ -57,8 +57,16 @@
       <c:forEach var="bdto" items="${map.list}">
       <tr>
         <td><span class="table-notice">${bdto.bno}</span></td>
-        <td class="table-title">
-        <a href="bView?bno=${bdto.bno}">${bdto.btitle}</a>
+        <td class="table-title" >
+        <a href="bView?bno=${bdto.bno}" style="text-decoration: none;">
+        	<c:forEach var="i" begin="1" end="${bdto.bindent}" step="1">&nbsp&nbsp&nbsp</c:forEach>
+        	<c:if test="${bdto.bindent==0}">
+	        	${bdto.btitle}
+        	</c:if>
+        	<c:if test="${bdto.bindent>0}">
+	        	ㄴ${bdto.btitle}
+        	</c:if>
+        </a>
         </td>
         <td>${bdto.bdate}</td>
         <td>${bdto.bhit}</td>

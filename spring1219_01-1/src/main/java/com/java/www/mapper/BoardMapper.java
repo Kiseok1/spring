@@ -10,7 +10,7 @@ import com.java.www.dto.BoardDto;
 public interface BoardMapper {
 
 	ArrayList<BoardDto> selectAll(int startRow, int endRow, String category, String searchWord);
-	int countAll(int page);
+	int countAll(int page,String category, String searchWord);
 
 	BoardDto selectOne(int bno);
 

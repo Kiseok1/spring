@@ -18,7 +18,7 @@ public class BServiceImpl implements BService {
 	
 	@Override
 	public Map<String, Object> selectAll(int page, String category, String searchWord) {
-		int countAll = boardMapper.countAll(page);
+		int countAll = boardMapper.countAll(page,category,searchWord);
 		int rowPerPage = 10;
 		int numberingBox = 10;
 		int maxPage = (int)Math.ceil((double)countAll/rowPerPage);
