@@ -48,15 +48,15 @@ public class BServiceImpl implements BService {
 	public BCommentDto bCommentInsert(BCommentDto cdto) {
 		cdto.setId((String) session.getAttribute("session_id"));
 		
-		//댓글 1개 저장
+		//댓글 1개 저장 
 		boardMapper.bCommentInsert(cdto); // 댓글폼에서 입력한 내용 저장시킴
 		System.out.println("BServiceImpl bCommentInsert cno : "+cdto.getCno());
 		System.out.println("BServiceImpl bCommentInsert cdate : "+cdto.getCdate());
 		
 		//댓글 1개 가져오기
-		BCommentDto bCommentDto = boardMapper.bCommentSelectOne(cdto.getCno()); // 댓글폼에서 입력한 내용 저장시킴
+		//BCommentDto bCommentDto = boardMapper.bCommentSelectOne(cdto.getCno()); // 댓글폼에서 입력한 내용 저장시킴
 		
-		return bCommentDto;
+		return cdto;
 	}
 
 	@Override //댓글 삭제

@@ -162,7 +162,7 @@ $(document).ready(function() {
 				<div id="mnaviOpen"><img src="../images/btn/btn_mnavi.gif" width="33" height="31" alt="메뉴열기" /></div>
 				<div id="mnaviClose"><img src="../images/btn/btn_mnavi_close.gif" width="44" height="43" alt="메뉴닫기" /></div>
 				<ul>
-					<li><a href="#">EVENT</a></li>
+					<li><a href="/layout/chart">차트EVENT</a></li>
 					<li><a href="customer/notice">CUSTOMER</a></li>
 					<li><a href="#">COMMUNITY</a></li>
 				</ul>
@@ -170,11 +170,11 @@ $(document).ready(function() {
 			<div id="snb">
 				<ul>
 					<c:if test="${session_id==null}">
-						<li><a href="member/login">LOGIN</a></li>
+						<li><a href="/member/login">LOGIN</a></li>
 						<li><a href="#">JOIN</a></li>
 					</c:if>
 					<c:if test="${session_id!=null}">
-						<li><a href="member/logout">LOGOUT</a></li>
+						<li><a href="/member/logout">LOGOUT</a></li>
 						<li><a href="#">${session_name}님</a></li>
 					</c:if>
 					
