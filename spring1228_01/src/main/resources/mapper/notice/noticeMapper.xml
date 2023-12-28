@@ -1,0 +1,51 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--MemberMapper.java Interface 연결 -->    
+<mapper namespace="com.java.www.mapper.NoticeMapper">
+	
+	<select id="selectAll">
+		select * from
+		(select row_number() over(order by bgroup desc, bstep asc) rnum, a.* from board a )
+		where rnum between 1 and 10
+	</select>
+	
+	<update id="bhitUp">
+		update board set bhit=bhit+1 where bno=#{bno}
+	</update>
+	
+	<select id="selectOne">
+		select * from board where bno=#{bno}
+	</select>
+	
+	<select id="selectOnePrev">
+		select * from (select rownum rnum, a.* from
+		(select * from board order by bgroup desc, bstep asc) a	)
+		where rnum=( select rnum from (select rownum rnum, a.* from
+		(select * from board order by bgroup desc, bstep asc) a ) where bno=#{bno} )+1
+	</select>
+	
+	<select id="selectOneNext">
+		select * from (select rownum rnum, a.* from
+		(select * from board order by bgroup desc, bstep asc) a	)
+		where rnum=( select rnum from (select rownum rnum, a.* from
+		(select * from board order by bgroup desc, bstep asc) a ) where bno=#{bno} )-1
+	</select>
+	
+	<select id="commentSelectAll">
+		select * from ecomment where bno=#{bno} order by cno desc
+	</select>
+	
+	<insert id="notice_write">
+		insert into board values(board_seq.nextval,#{btitle},#{bcontent},sysdate,#{id},board_seq.currval,0,0,1,#{bfile})
+	</insert>
+	
+	<insert id="cInsert">
+		<selectKey resultType="com.java.www.dto.CommentDto" keyProperty="cno,cdate" order="BEFORE">
+			select ecomment_seq.nextval cno, sysdate cdate from dual
+		</selectKey>
+		insert into ecomment values(#{cno},#{bno},#{id},#{cpw},#{ccontent},#{cdate})
+	</insert>
+	
+</mapper>
