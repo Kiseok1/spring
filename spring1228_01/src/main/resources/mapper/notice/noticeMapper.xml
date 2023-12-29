@@ -8,7 +8,7 @@
 	<select id="selectAll">
 		select * from
 		(select row_number() over(order by bgroup desc, bstep asc) rnum, a.* from board a )
-		where rnum between 1 and 10
+		where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	<update id="bhitUp">
@@ -47,5 +47,13 @@
 		</selectKey>
 		insert into ecomment values(#{cno},#{bno},#{id},#{cpw},#{ccontent},#{cdate})
 	</insert>
+	
+	<delete id="cDelete">
+		delete ecomment where cno=#{cno}
+	</delete>
+	
+	<select id="listCount">
+		select count(*) from board
+	</select>
 	
 </mapper>

@@ -11,7 +11,7 @@ import com.java.www.dto.NoticeDto;
 public interface NoticeMapper {
 
 	//게시글 전체 가져오기
-	List<NoticeDto> selectAll();
+	List<NoticeDto> selectAll(int page, int startRow, int endRow);
 
 	//조회수 1증가
 	void bhitUp(int bno);
@@ -28,5 +28,11 @@ public interface NoticeMapper {
 
 	//댓글 등록
 	void cInsert(CommentDto cdto);
+
+	//댓글 삭제
+	void cDelete(CommentDto cdto);
+	
+	//게시글 총개수
+	int listCount();
 
 }

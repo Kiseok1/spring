@@ -33,9 +33,9 @@ public class CustomerContoller {
 	HttpSession session;
 	
 	@RequestMapping("notice")
-	public String notice(Model model) {
-		List<NoticeDto> list = nService.selectAll();
-		model.addAttribute("list",list);
+	public String notice(@RequestParam(defaultValue = "1")int page, Model model) {
+		Map<String, Object> map = nService.selectAll(page);
+		model.addAttribute("map",map);
 		return "customer/notice";
 	}
 	
@@ -79,6 +79,13 @@ public class CustomerContoller {
 		cdto.setId((String) session.getAttribute("session_id"));
 		CommentDto commentDto = nService.cInsert(cdto);
 		return commentDto;
+	}
+	
+	@PostMapping("cDelete")
+	@ResponseBody
+	public String cDelete(CommentDto cdto) {
+		String result = nService.cDelete(cdto);
+		return result;
 	}
 	
 	

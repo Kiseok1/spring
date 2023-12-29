@@ -9,7 +9,7 @@ import com.java.www.dto.NoticeDto;
 public interface NService {
 
 	//게시글 전체 가져오기
-	List<NoticeDto> selectAll();
+	Map<String, Object> selectAll(int page);
 
 	//게시글 클릭
 	Map<String, Object> selectOne(int bno);
@@ -19,5 +19,8 @@ public interface NService {
 
 	//댓글 등록
 	CommentDto cInsert(CommentDto cdto);
+
+	//댓글 삭제
+	String cDelete(CommentDto cdto);
 
 }

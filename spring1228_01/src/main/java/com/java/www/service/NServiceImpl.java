@@ -18,9 +18,29 @@ public class NServiceImpl implements NService {
 	NoticeMapper noticeMapper;
 
 	@Override //게시글 전체 가져오기
-	public List<NoticeDto> selectAll() {
-		List<NoticeDto> list = noticeMapper.selectAll();
-		return list;
+	public Map<String, Object> selectAll(int page) {
+		//게시글 총개수
+		int listCount = noticeMapper.listCount();
+		System.out.println(listCount);	
+		int rowPerPage = 8;
+		int numberingBox = 5;
+		int startPage = ((page-1)/numberingBox)*numberingBox+1;
+		int endPage = startPage+numberingBox-1;
+		int maxPage = (int)Math.ceil( (double)listCount/rowPerPage );
+		if(endPage>maxPage) endPage=maxPage;
+		int startRow = (page-1)*rowPerPage+1;
+		int endRow = startRow+rowPerPage-1;
+		//int endRow = page*rowPerPage;
+		
+		List<NoticeDto> list = noticeMapper.selectAll(page,startRow,endRow);
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("maxPage", maxPage);
+		map.put("page", page);
+		
+		return map;
 	}
 
 	@Override //게시글 클릭
@@ -53,5 +73,12 @@ public class NServiceImpl implements NService {
 	public CommentDto cInsert(CommentDto cdto) {
 		noticeMapper.cInsert(cdto);
 		return cdto;
+	}
+
+	@Override //댓글 삭제
+	public String cDelete(CommentDto cdto) {
+		noticeMapper.cDelete(cdto);
+		String result = "삭제완료";
+		return result;
 	}
 }

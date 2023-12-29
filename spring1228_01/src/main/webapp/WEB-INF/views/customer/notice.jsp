@@ -232,7 +232,7 @@ $(document).ready(function() {
 							</thead>
 							<tbody>
 								<!-- 반복시작 -->
-								<c:forEach var="bdto" items="${list}">
+								<c:forEach var="bdto" items="${map.list}">
 									<tr>
 										<td class="tnone">${bdto.bno}</td>
 										<td class="left">
@@ -248,8 +248,6 @@ $(document).ready(function() {
 							</tbody>
 						</table>
 					</div>
-						
-
 
 					<div class="btnAreaList">
 						<div class="bwright">
@@ -260,14 +258,29 @@ $(document).ready(function() {
 						
 						<!-- 페이징이동1 -->
 						<div class="allPageMoving1">
-
-						<a href="#" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="#" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
-						<strong>1</strong>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#">4</a>
-						<a href="#">5</a>
-						<a href="#" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="#" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+						<a href="notice?page=1" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a>
+						<c:if test="${map.page>1}">
+							<a href="notice?page=${map.page-1}" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+						</c:if>
+						<c:if test="${map.page<=1}">
+							<a class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+						</c:if>
+						<c:forEach begin="${map.startPage}" end="${map.endPage}" step="1" var="i">
+							<c:if test="${map.page==i}">
+								<strong>${i}</strong>
+							</c:if>
+							<c:if test="${map.page!=i}">
+								<a href="notice?page=${i}">${i}</a>
+							</c:if>
+						</c:forEach>
+						
+						<c:if test="${map.page>=map.maxPage}">
+							<a class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
+						</c:if>
+						<c:if test="${map.page<map.maxPage}">
+							<a href="notice?page=${map.page+1}" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
+						</c:if>
+						<a href="notice?page=${map.maxPage}" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
 						</div>
 						<!-- //페이징이동1 -->

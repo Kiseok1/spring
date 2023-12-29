@@ -257,6 +257,7 @@ $(document).ready(function() {
 					
 					<script>
 						$(function(){
+							
 							//댓글 등록
 							$(document).on("click",".replyBtn",function(){
 								//alert($(".replynum").val());
@@ -281,8 +282,8 @@ $(document).ready(function() {
 										hdata+='<li class="txt">'+data.ccontent+'</li>';
 										if("${session_id}"==data.id){
 											hdata+='<li class="btn">';
-											hdata+='<a href="#" class="rebtn">수정</a>&nbsp';
-											hdata+='<a href="#" class="rebtn">삭제</a>';
+											hdata+='<a class="rebtn updateBtn">수정</a>&nbsp';
+											hdata+='<a class="rebtn delBtn">삭제</a>';
 											hdata+='</li>';
 										}
 										hdata+='</ul>';
@@ -298,7 +299,38 @@ $(document).ready(function() {
 									}
 								})//ajax
 								
-							})
+							})//댓글 등록
+							
+							//댓글 삭제
+							$(document).on("click",".delBtn",function(){
+								//alert($(".replynum").val());
+								//alert($(".replyType").val());
+								
+								let cno = $(this).parent().parent().attr("id");
+								
+								$.ajax({
+									url:"cDelete",
+									type:"post",
+									data:{"cno":cno},
+									dataType:"text",
+									success:function(data){
+										alert("성공");
+										if(data=="삭제완료"){
+											
+											$("#"+cno).remove();
+											
+											
+										}
+										
+										
+									},
+									error:function(){
+										alert("실패");
+									}
+								})//ajax
+								
+							})//댓글 삭제
+							
 							
 						})//jquery
 					</script>
@@ -324,8 +356,8 @@ $(document).ready(function() {
 								<li class="txt">${cdto.ccontent}</li>
 								<c:if test="${session_id==cdto.id}">
 									<li class="btn">
-										<a href="#" class="rebtn">수정</a>
-										<a href="#" class="rebtn">삭제</a>
+										<a class="rebtn updateBtn">수정</a>
+										<a class="rebtn delBtn">삭제</a>
 									</li>
 								</c:if>
 							</ul>
