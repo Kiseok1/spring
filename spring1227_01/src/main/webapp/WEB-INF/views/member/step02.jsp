@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -519,7 +524,7 @@ $(document).ready(function() {
 
 							<ul>
 								<li class="chk">
-									<input type="checkbox" id="agree1" /><label for="agree1">이용약관에 동의합니다.</label>
+									<input type="checkbox" name="agree" id="agree1" /><label for="agree1">이용약관에 동의합니다.</label>
 								</li>
 								<li class="btn">
 									<a href="#" class="nbtnMini">전체보기</a>
@@ -571,7 +576,7 @@ $(document).ready(function() {
 
 							<ul>
 								<li class="chk">
-									<input type="checkbox" id="agree2" /><label for="agree2">개인정보 보호를 위한 이용자 <span>동의사항에 동의합니다.</span></label>
+									<input type="checkbox" name="agree" id="agree2" /><label for="agree2">개인정보 보호를 위한 이용자 <span>동의사항에 동의합니다.</span></label>
 								</li>
 								<li class="btn">
 									<a href="#" class="nbtnMini">전체보기</a>
@@ -623,7 +628,7 @@ $(document).ready(function() {
 
 							<ul class="fn">
 								<li class="chk">
-									<input type="checkbox" id="agree3" /><label for="agree3">개인정보 보호를 위한 이용자 <span>동의사항에 동의합니다.</span></label>
+									<input type="checkbox" name="agree" id="agree3" /><label for="agree3">개인정보 보호를 위한 이용자 <span>동의사항에 동의합니다.</span></label>
 								</li>
 								<li class="btn">
 									<a href="#" class="nbtnMini">전체보기</a>
@@ -638,13 +643,33 @@ $(document).ready(function() {
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>
-								<li><a href="#" class="nbtnbig">취소하기</a></li>
-								<li><a href="#" class="sbtnMini">가입하기</a></li>
+								<li><a class="nbtnbig c_pointer">취소하기</a></li>
+								<li><a class="sbtnMini c_pointer">가입하기</a></li>
 							</ul>
 						</div>
 					</div>
 					<!-- //Btn Area -->
 
+					<script>
+						$(function(){
+							$(".sbtnMini").click(function(){
+								//let checkbox = $('input:checkbox[name="agree"]:checked');
+								let checkbox = $('input:checkbox:checked');
+								let count = checkbox.length;
+								//alert(count);
+								
+								if(count==3){
+									location.href="/member/step03";
+								} else {
+									alert("필수동의란에 체크해주세요");
+									return false;
+								}
+							})
+							
+							
+						});//jquery
+					
+					</script>
 
 
 				</div>

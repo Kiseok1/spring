@@ -11,16 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BoardDto {
+public class Member2Dto {
 
-	private int bno;
-	private String btitle;
-	private String bcontent;
-	private Timestamp bdate;
 	private String id;
-	private int bgroup;
-	private int bstep;
-	private int bindent;
-	private int bhit;
-	private String bfile;
+	private String pw;
+	private String name;
+	private String phone;
+	private String email;
+	private String gender;
+	private String hobby;
+	private Timestamp mdate;
 }

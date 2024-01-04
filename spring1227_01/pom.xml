@@ -103,6 +103,21 @@
 			<version>1.16</version>
 		</dependency>
 		
+		<!-- starter-mail text 메일서비스(text만 가능) -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- javax.mail-api 메일서비스(text,html,파일첨부등 가능) -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.6.0</version>
+		</dependency>
+
+
+		
 	</dependencies>
 
 	<build>

@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="../css/reset.css?v=Y" />
 <link rel="stylesheet" type="text/css" href="../css/layout.css?v=Y" />
 <link rel="stylesheet" type="text/css" href="../css/content.css?v=Y" />
-<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="../js/top_navi.js"></script>
 <script type="text/javascript" src="../js/left_navi.js"></script>
 <script type="text/javascript" src="../js/main.js"></script>
@@ -189,7 +194,7 @@ $(document).ready(function() {
 			<ol>
 				<li><a href="#">HOME</a></li>
 				<li><a href="#">MEMBERSHIP</a></li>
-				<li class="last">회원가입</li>
+				<li class="last">아이디/비밀번호 찾기</li>
 			</ol>
 		</div>
 		
@@ -204,54 +209,124 @@ $(document).ready(function() {
 					<li><a href="#" id="leftNavi5">개인정보<span>취급방침</span></a></li>
 					<li class="last"><a href="#" id="leftNavi6">이메일무단<span>수집거부</span></a></li>
 				</ul>			
-			</div><script type="text/javascript">initSubmenu(2,0);</script>
+			</div><script type="text/javascript">initSubmenu(3,0);</script>
 
+			<script>
+				$(function(){
+					$("#pwBtn").click(function(){
+						alert("비밀번호 찾기를 시작합니다.");
+						let id = $("#pwFindId").val();
+						let email = $("#pwFindEmail").val();
+						//alert(id);
+						//alert(email);
+						
+						//ajax전송
+						$.ajax({
+							url:"/member/pwsearch",
+							type:"post",
+							data:{"id":id,"email":email},
+							dataType:"text",
+							success:function(data){
+								if(data=="success") alert("메일이 발송되었습니다."); 
+								else alert("아이디 또는 이메일 주소가 틀립니다. 다시 입력하세요.");
+								console.log(data);
+							},
+							error:function(){
+								alert("실패");
+							}
+						})//ajax
+						
+						
+					});//pwBtn 클릭
+					
+					
+					 $("#idBtn").click(function(){
+						let name = $("#idName").val();
+						let email = $("#idEmail").val();
+						
+					/* $.ajax({
+							url:"/member/idSearchAjax",
+							type:"post",
+							data:{"name":name,"email":email},
+							dataType:"text",
+							success:function(data){
+								alert("성공");
+								let length = data.length;
+								let result = data.substring(0,length-2);
+								let findId = result+"**";
+								console.log(result);
+								location.href="/member/id2?id="+findId; // 파라미터 이용
+								//location.href="/member/id2"; //session 이용
+							},
+							error:function(){
+								alert("실패");
+							}
+						})//ajax   */
+						
+						$.ajax({
+							url:"/member/idSearchAjax2",
+							type:"post",
+							data:{"name":name,"email":email},
+							dataType:"text",
+							success:function(data){
+								console.log(data);
+								if(data=="fail"){
+									alert("아이디가 존재하지 않습니다.")
+								} else {
+									//alert("아이디를 찾았습니다.");
+									location.href = "/member/id2?id="+data;
+								}
+								
+							},
+							error:function(){
+								alert("실패");
+							}
+						})//ajax  
+						
+						//alert($("#idName").val());
+						//alert($("#idEmail").val());
+						//iFrm.submit();
+					})//idsearch 클릭
+					
+				});//jquery
+			</script>
+			
+			
 
 			<!-- contents -->
 			<div id="contents">
 				<div id="member">
-					<h2><strong>회원가입</strong><span>회원으로 가입하시면 보다 더 다양한 혜택을 누리실 수 있습니다.</span></h2>
-					
-					<!-- STEP -->
-					<div class="stepWrap">
-						<div class="step stepon">
-							<p class="web">STEP 01</p>
-							<p class="txt">실명확인</p>
-							<p class="ck"><img src="../images/bg/bg_step.png" alt="현재위치" /></p>
-						</div>
+					<h2><strong>아이디/비밀번호 찾기</strong><span>회원님께서 가입하신 아이디와 비밀번호를 찾아드립니다.</span></h2>
+					<h3>아이디 찾기</h3>
+					<form action="/member/idSearch" method="post" name="iFrm">
+					<div class="informbox">
+						<div class="inform">
+							<ul>
+								<li><input type="text" name="idName" id="idName" class="nameType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='nameType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" /></li>
+								<li><input type="text" name="idEmail" id="idEmail" class="emailType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='emailType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" /></li>
+							</ul>
 
-						<div class="step">
-							<p class="web">STEP 02</p>
-							<p class="txt">약관 동의</p>
-						</div>
-
-						<div class="step">
-							<p class="web">STEP 03</p>
-							<p class="txt"><span>회원정보</span> <span>입력</span></p>
-						</div>
-
-						<div class="step">
-							<p class="web">STEP 04</p>
-							<p class="txt"><span>회원가입</span> <span>완료</span></p>
+							<div class="btn"><a id="idBtn" class="gbtn c_pointer">아이디 찾기</a></div>
 						</div>
 					</div>
-					<!-- //STEP -->
-						
+					</form>
 
-					<div class="alertBox">
-						<ul>
-							<li>회원님의 실명확인 및 가입 여부를 확인하는 절차입니다.</li>
-							<li>회원님의 개인 정보 보호를 위해 실명확인을 실시하고 있습니다.</li>
-						</ul>
+
+
+					<h3>비밀번호 찾기</h3>
+					<div class="informbox">
+						<div class="inform">
+							<ul>
+								<li><input type="text" id="pwFindId" class="loginType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='loginType'}else {this.className='mfocusnot'}" /></li>
+								<li><input type="text" id="pwFindEmail" class="emailType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='emailType'}else {this.className='mfocusnot'}" /></li>
+							</ul>
+
+							<div class="btn"><a id="pwBtn" class="gbtn c_pointer">비밀번호 찾기</a></div>
+						</div>
 					</div>
 
 
-					<!-- Btn Area -->
-					<div class="btnAreaCenter">
-						<a href="#" class="gbtn">휴대폰인증</a></li>
-					</div>
-					<!-- //Btn Area -->
-
+					<p class="alert">쟈뎅 온라인 쇼핑몰에서는 2012년 8월 18일로 시행되는 정보통신망 이용 촉진 및 정보 보호 등에 관한 법률 “주민등록번호의 <span>사용 제한”과 관련하여 주민등록번호를 수집하지 않습니다.</span></p>
 
 				</div>
 			</div>

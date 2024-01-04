@@ -4,9 +4,27 @@
 
 <!--MemberMapper.java Interface 연결 -->    
 <mapper namespace="com.java.www.mapper.MemberMapper">
-	
-	<select id="login" resultType="com.java.www.dto.MemberDto">
-		select * from member where id=#{id} and pw=#{pw}
+	<!-- 로그인 -->
+	<select id="login" resultType="com.java.www.dto.Member2Dto">
+		select * from member2 where id=#{id} and pw=#{pw}
 	</select>
+ 	
+ 	<!-- 아이디 찾기 -->
+ 	<select id="idSearch" resultType="com.java.www.dto.Member2Dto">
+ 		select * from member2 where name=#{name} and email=#{email}
+  	</select>
+  	
+  	<!-- 비번 찾기 -->
+ 	<select id="pwsearch" resultType="com.java.www.dto.Member2Dto">
+ 		select * from member2 where id=#{id} and email=#{email}
+  	</select>
+  	
+  	<update id="update_pw">
+  		update member2 set pw=#{pwcode} where id=#{id}
+  	</update>
+  	
+  	<select id="idCheck">
+  		select * from member2 where id=#{id}
+  	</select>
  	
 </mapper>
