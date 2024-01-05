@@ -40,22 +40,26 @@
  			  fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
  			  callbacks: { //여기 부분이 이미지를 첨부하는 부분
 	  			  onImageUpload : function(files) {
-	  			  console.log(files);	  
-	  			  //이미지 업로드 함수호출 - 매개변수 : 이미지파일, 현재 위치
-	  			  uploadSummernoteImageFile(files[0],this); 
-	  			  },
+	  			  //console.log(files);
+	  			  //console.log(this);
+		  			  for(var i=0;i<files.length;i++){
+			  			  //이미지 업로드 함수호출 - 매개변수 : 이미지파일, 현재 위치
+			  			  uploadSummernoteImageFile(files[i],this); 
+		  				  
+		  			  }//for
+	  			  }, //onImageUpload
 	  			  onPaste: function (e) {
 	  			   var clipboardData = e.originalEvent.clipboardData;
-	  			   if (clipboardData && clipboardData.items &&
-	  			   clipboardData.items.length) {
-	  			       var item = clipboardData.items[0];
-	  			if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-	  			  e.preventDefault();
-	  			       }
-	  			   }
-	  			 }
-	  			} //callbacks
-		 });
+		  			   console.log(clipboardData);
+		  			   if (clipboardData && clipboardData.items && clipboardData.items.length) {
+		  			       var item = clipboardData.items[0];
+		  				   if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+		  			  		 e.preventDefault();
+		  			       } 
+		  			   }
+	  			  }// onPaste
+	  		  } //callbacks
+		 });//summernote
 	});//jquery
 	
 	//summernote Form데이터 이미지 추가 - file
@@ -64,6 +68,11 @@
   		//console.log(this_editor);
   		var form_data = new FormData(); //form객체선언
   		form_data.append("file",file);
+  		/* let values = form_data.values();
+  		for (const pair of values) {
+  		    console.log(pair); 
+  		} 
+  		console.log(values); */
   		
   		//ajax전송
   		$.ajax({
