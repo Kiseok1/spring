@@ -105,7 +105,7 @@
       <li class="last"></li>
     </ul>
 
-    <a href="bwrite"><div class="write">쓰기</div></a>
+    <a href="bInsert"><div class="write">쓰기</div></a>
   </section>
 
   <footer>

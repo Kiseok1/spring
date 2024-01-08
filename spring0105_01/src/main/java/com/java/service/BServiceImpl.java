@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.dto.BoardDto;
+import com.java.dto.MemberDto;
 import com.java.mapper.BoardMapper;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +33,18 @@ public class BServiceImpl implements BService {
 	public BoardDto selectOne(int bno) {
 		BoardDto bdto = boardMapper.selectOne(bno);
 		return bdto;
+	}
+
+	
+	@Override //로그인
+	public MemberDto login(MemberDto mdto) {
+		MemberDto memdto = boardMapper.login(mdto);
+		return memdto;
+	}
+
+	@Override
+	public void bInsert(BoardDto bdto) {
+		boardMapper.bInsert(bdto);
 	}
 
 }

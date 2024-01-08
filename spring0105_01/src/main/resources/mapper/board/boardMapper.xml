@@ -19,5 +19,13 @@
 	<select id="selectOne">
 		select * from board2 where bno=#{bno}
 	</select>
+	
+	<select id="login">
+		select * from member where id=#{id} and pw=#{pw}
+	</select>
+	
+	<insert id="bInsert">
+		insert into board2 values (board_seq.nextval,#{btitle},#{bcontent},sysdate,#{id},board_seq.currval,0,0,1,#{bfile})
+	</insert>
  	
 </mapper>

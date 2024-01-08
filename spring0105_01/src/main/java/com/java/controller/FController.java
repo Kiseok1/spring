@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.java.dto.BoardDto;
+import com.java.dto.MemberDto;
 import com.java.service.BService;
 
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +38,29 @@ public class FController {
 		return "main";
 	}
 	
+	@GetMapping("login")
+	public String login() {
+		return "login";
+	}
+	
+	@GetMapping("logout")
+	public String logout() {
+		session.invalidate();
+		return "main";
+	}
+	
+	@PostMapping("login")
+	public String login(MemberDto mdto, Model model) {
+		MemberDto memDto = bService.login(mdto);
+		if(memDto!=null) {
+			session.setAttribute("session_id", memDto.getId());
+			session.setAttribute("session_name", memDto.getName());
+		}
+		
+		model.addAttribute("result",memDto);
+		return "dologin";
+	}
+	
 	@GetMapping("bview") //게시글 보기
 	public String bview(@RequestParam(defaultValue = "1")int bno,Model model) {
 		//게시글 1개 가져오기
@@ -47,6 +72,31 @@ public class FController {
 	@GetMapping("bwrite")
 	public String bwrite() {
 		return "bwrite";
+	}
+	
+	@GetMapping("bInsert")
+	public String bInsert() {
+		return "bInsert";
+	}
+	
+	@PostMapping("write")
+	public String write(@RequestPart MultipartFile file,BoardDto bdto, Model model) throws Exception {
+		if(!file.isEmpty()) {
+			String orgName = file.getOriginalFilename();
+			long time = System.currentTimeMillis();
+			String newName = time+"_"+orgName;
+			bdto.setBfile(newName);
+			
+			String upload = "c:/upload/";
+			File f = new File(upload+newName);
+			file.transferTo(f);
+		}else {
+			bdto.setBfile("");
+		}
+		
+		bService.bInsert(bdto);
+		model.addAttribute("result","success-bwrite");
+		return "result";
 	}
 	
 	@GetMapping("map")
@@ -95,9 +145,10 @@ public class FController {
 			long time = System.currentTimeMillis();
 			String uploadFileName = time+"_"+oriFileName; //파일이름변경
 			String upload = "c:/upload/";
+			bdto.setBfile(uploadFileName); //dto bfile 이름저장
+			
 			File f = new File(upload+uploadFileName); //파일등록
 			file.transferTo(f); // 파일서버로 전송
-			bdto.setBfile(uploadFileName); //dto bfile 이름저장
 		} else {
 			bdto.setBfile(""); //dto bfile 이름저장
 		}

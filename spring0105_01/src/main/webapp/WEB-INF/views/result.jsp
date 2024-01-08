@@ -17,6 +17,7 @@
 					location.href="blist";
 				</script>
 			</c:when>
+		
 			<c:otherwise>
 			
 			</c:otherwise>
