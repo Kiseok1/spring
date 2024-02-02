@@ -370,7 +370,7 @@ $(document).ready(function() {
 								
 								let hdata = '';
 								
-								hdata += '<input type="hidden" id="hiddenTxt" value="'+ccontent+'">';
+								/* hdata += '<input type="hidden" id="hiddenTxt" value="'+ccontent+'">';  */
 								hdata += '<li class="name">'+id+' <span>'+cdate+'</span></li>';
 								hdata += '<li class="txt"><textarea class="replyType">'+ccontent+'</textarea></li>';
 								hdata += '<li class="btn">';
@@ -448,7 +448,8 @@ $(document).ready(function() {
 								let id = "${session_id}";
 								let cdate = $(this).parent().parent().find("span").text();
 								//parent()- 부모, find() 현재태그에 포함된 id를 찾음.
-								let ccontent = $(this).parent().parent().find("#hiddenTxt").val();
+								/* let ccontent = $(this).parent().parent().find("#hiddenTxt").val(); */
+								 let ccontent = $(this).parent().parent().find(".replyType").val(); 
 								
 								//태그 입력 시작
 								let hdata = "";
