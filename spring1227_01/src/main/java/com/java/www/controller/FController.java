@@ -27,6 +27,17 @@ public class FController {
 		return "layout/main";
 	}
 	
+	@GetMapping("/callback")
+	public String callback() {
+		return "/layout/callback";
+	}
+	
+	@GetMapping("/naverLogin")
+	public String naverLogin() {
+		return "/layout/naverlogin";
+	}
+	
+	
 	@GetMapping("layout/chart")
 	public String chart() {
 		return "layout/chart";
@@ -281,5 +292,7 @@ public class FController {
 		
 		return sb.toString();
 	}//bikeData
+	
+	
 	
 }

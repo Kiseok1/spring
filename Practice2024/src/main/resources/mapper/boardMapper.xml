@@ -1,0 +1,24 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BoardMapper.java 연결 -->
+<mapper namespace="com.java.www.mapper.BoardMapper">
+
+	<select id="selectAll" resultType="com.java.www.dto.MemberDto">
+		select * from 
+		(select row_number() over(order by ymno) rnum, a.* from ymember a 
+		<!-- <if test="gender!=all">
+		where gender=#{gender}
+		</if> -->
+		)
+		where rnum between #{firstRow} and #{endRow}
+	</select>
+	
+	<select id="listCount">
+		select count(*) from ymember 
+		<if test="gender!=all">
+		where gender=#{gender}
+		</if>
+	</select>
+
+</mapper>

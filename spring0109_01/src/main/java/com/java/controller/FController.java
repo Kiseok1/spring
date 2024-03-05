@@ -182,4 +182,14 @@ public class FController {
 		
 		return targetUrl;
 	}
+	
+	@GetMapping("/naverlogin1")
+	public String naverlogin() {
+		return "/naverlogin";
+	}
+	
+	@GetMapping("/naver/oauth")
+	public String callback() {
+		return "/callback";
+	}
 }
