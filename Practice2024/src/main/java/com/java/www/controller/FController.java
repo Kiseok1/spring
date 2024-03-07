@@ -1,6 +1,7 @@
 package com.java.www.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,9 +33,9 @@ public class FController {
 			result = "login";
 		} else {
 			result = "index";
-			System.out.println("con : "+ppr);
-			List<MemberDto> list = bService.selectAll(gender,page,ppr);
-			model.addAttribute("list",list);
+			System.out.println("con : "+gender);
+			Map<String, Object> map = bService.selectAll(gender,page,ppr);
+			model.addAttribute("map",map);
 		}
 		return result;
 	}// index

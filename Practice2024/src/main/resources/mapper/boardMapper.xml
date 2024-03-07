@@ -7,16 +7,16 @@
 	<select id="selectAll" resultType="com.java.www.dto.MemberDto">
 		select * from 
 		(select row_number() over(order by ymno) rnum, a.* from ymember a 
-		<!-- <if test="gender!=all">
+		<if test="gender!='all'">
 		where gender=#{gender}
-		</if> -->
+		</if>
 		)
 		where rnum between #{firstRow} and #{endRow}
 	</select>
 	
 	<select id="listCount">
 		select count(*) from ymember 
-		<if test="gender!=all">
+		<if test="gender!='all'">
 		where gender=#{gender}
 		</if>
 	</select>

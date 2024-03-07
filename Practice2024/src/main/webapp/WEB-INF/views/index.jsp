@@ -53,20 +53,35 @@
 	<h1 style="font-size: 70px; font-weight: 700;">회원정보 리스트</h1>
 	
 	<!--검색어 찾기 -->
+	<form action="/" method="get" name="searchFrm">
 	<div id="search-container">
 	
 	<div id="seletBox" style="width: 275px; padding-top: 50px;">
 		<input type="button" id="SelectAll" value="전체선택" style="font-weight: 700; margin-right: 10px;">
-		<input type="radio" value="male" name="gender"  id="male" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
-		<input type="radio" value="female" name="gender" id="female" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
+		<input type="radio" value="Male" name="gender"  id="Male" style="display: inline-block; vertical-align: middle;"><label for="Male">남자</label>
+		<input type="radio" value="Female" name="gender" id="Female" style="display: inline-block; vertical-align: middle;"><label for="Female" >여자</label>
 		<input type="radio" value="all" name="gender" id="all" style="display: inline-block; vertical-align: middle;"><label for="all">전체</label>
 	</div>
-		<form action="/" method="get" name="searchFrm">
 			<div id="searchSection">
 				<select id="ViewCondition" name="ppr">
-					<option value="5">5 개</option>
-					<option value="10">10 개</option>
-					<option value="20">20 개</option>
+					<c:if test="${map.ppr==5}">
+						<option value="5" selected>5 개</option>
+					</c:if>
+					<c:if test="${map.ppr!=5}">
+						<option value="5">5 개</option>
+					</c:if>
+					<c:if test="${map.ppr==10}">
+						<option value="10" selected>10 개</option>
+					</c:if>
+					<c:if test="${map.ppr!=10}">
+						<option value="10">10 개</option>
+					</c:if>
+					<c:if test="${map.ppr==20}">
+						<option value="20" selected>20 개</option>
+					</c:if>
+					<c:if test="${map.ppr!=20}">
+						<option value="20">20 개</option>
+					</c:if>
 				</select>
 				<select id="searchCategory">
 					<option value="all" name="category">전체</option>
@@ -111,7 +126,7 @@
 	      </tr>
 	    </thead>
 	    <tbody style="border-bottom: 2px solid #14213d;">
-	      <c:forEach var="dto" items="${list}">
+	      <c:forEach var="dto" items="${map.list}">
 	      	<tr>
 		        <td class="Bno"><input type="checkbox">${dto.ymno}</td>
 		        <td class="ID">${dto.id}</td>
@@ -131,15 +146,28 @@
 	  
 	  <!--페이지 넘버링 -->
 	  <ul id="PageNum" style="display: flex; list-style: none;">
-	  	<li class="num"><i class="fa fa-backward" aria-hidden="true"></i></li>
-	  	<li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></i></li>
-	  	<li class="num">1</li>
-	  	<li class="num">2</li>
-	  	<li class="num">3</li>
-	  	<li class="num">4</li>
-	  	<li class="num">5</li>
-	  	<li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
-	  	<li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li>
+	  	<li class="num" onclick="location.href='/?page=1&gender=${map.gender}'"><i class="fa fa-backward" aria-hidden="true"></i></li>
+	  	<c:if test="${map.page!=1}">
+	  		<li class="num" onclick="location.href='/?page=${map.page-1}&gender=${map.gender}&ppr=${map.ppr}'"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
+	  	</c:if>
+	  	<c:if test="${map.page==1}">
+	  		<li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
+	  	</c:if>
+	  	<c:forEach var="i" begin="${map.firstBox}" end="${map.endBox}" step="1">
+	  		<c:if test="${map.page==i}">
+		  		<li class="num" style="background: #14213d; color: yellow;">${i}</li>
+	  		</c:if>
+	  		<c:if test="${map.page!=i}">
+		  		<li class="num" onclick="location.href='/?page=${i}&gender=${map.gender}&ppr=${map.ppr}'">${i}</li>
+	  		</c:if>
+	  	</c:forEach>
+	  	<c:if test="${map.page!=map.maxBox}">
+		  	<li class="num" onclick="location.href='/?page=${map.page+1}&gender=${map.gender}&ppr=${map.ppr}'"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
+	  	</c:if>
+	  	<c:if test="${map.page==map.maxBox}">
+		  	<li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
+	  	</c:if>
+	  	<li class="num" onclick="location.href='/?page=${map.maxBox}&gender=${map.gender}&ppr=${map.ppr}'"><i class="fa fa-forward" aria-hidden="true"></i></li>
 	  </ul>
 	  <!--페이지 넘버링 끝 -->
 	<!--▣ 버튼 ▣ -->
