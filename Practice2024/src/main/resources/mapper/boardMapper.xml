@@ -20,5 +20,12 @@
 		where gender=#{gender}
 		</if>
 	</select>
+	
+	<delete id="deleteMember">
+		delete ymember where 
+		<foreach collection="ymnos" index="index" item="ymnos" open="(" separator="or" close=")">
+			ymno= #{ymnos}
+		</foreach>
+	</delete>
 
 </mapper>

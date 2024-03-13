@@ -31,11 +31,36 @@
 			
 			$("#listDelBtn").click(function(){
 				if(confirm("삭제하시겠습니까?")){
+					var selected = [];
+			        // 체크된 체크박스의 값을 배열에 추가한다
+			        $('input[type="checkbox"]:checked').each(function() {
+			            selected.push($(this).val());
+			        });
+			        console.log(selected);
+					$("#Frm").submit();
 				}//if(삭제확인)
 			});//#listInsertBtn(등록버튼)
 			
+			var Select_condition=0;
 			$("#SelectAll").click(function(){
 				alert("전체선택 버튼 test");
+			
+			/* if(Select_condition==0){
+				$("#checkBox").prop("checked", true);
+				Select_condition=1
+			} else if(Select_condition==1) {
+				$("#checkBox").prop("checked", false);
+				Select_condition=0;
+			} */
+			
+			if(Select_condition==0){
+				$(".checkBox").prop("checked",true);
+				Select_condition=1;
+			} else if (Select_condition ==1){
+				$(".checkBox").prop("checked",false);
+				Select_condition=0;
+			}
+			
 			});//#SelectAll(전체선택)
 			
 			$("#searchBtn").click(function(){
@@ -125,10 +150,11 @@
 	        <th>최근접속</th>
 	      </tr>
 	    </thead>
+	    <form id="Frm" action="memDel" method="post">
 	    <tbody style="border-bottom: 2px solid #14213d;">
 	      <c:forEach var="dto" items="${map.list}">
 	      	<tr>
-		        <td class="Bno"><input type="checkbox">${dto.ymno}</td>
+		        <td class="Bno"><input type="checkbox" class="checkBox" value="${dto.ymno}" name="ymnos">${dto.ymno}</td>
 		        <td class="ID">${dto.id}</td>
 		        <td class="Bdate">${dto.pw}</td>
 		        <td class="Btitle">${dto.name}</td>
@@ -142,6 +168,7 @@
 	      	</tr>
 	      </c:forEach>
 	    </tbody>
+	    </form>
 	  </table>
 	  
 	  <!--페이지 넘버링 -->

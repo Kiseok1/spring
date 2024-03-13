@@ -63,6 +63,17 @@ public class FController {
 		return "result";
 	}//login
 	
+	@PostMapping("memDel")
+	public String memDel(MemberDto mdto,int[] ymnos, Model model) {
+		for(int i=0;i<ymnos.length;i++) {
+			System.out.println("ymnos :"+ymnos[i]);
+		}
+		bService.deleteMember(ymnos);
+		model.addAttribute("result","delete-success");
+		return "result";
+	}//login
+	
+	
 	@GetMapping("logout")
 	public String logout(Model model) {
 		session.invalidate();	

@@ -29,6 +29,12 @@
 					location.href="/";
 				</script>
 			</c:when>
+			<c:when test="${result == 'delete-success'}">
+				<script>
+					alert("회원정보를 삭제하였습니다.");
+					location.href="/";
+				</script>
+			</c:when>
 		
 			<c:otherwise>
 			

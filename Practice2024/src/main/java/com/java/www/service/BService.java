@@ -11,4 +11,7 @@ public interface BService {
 	//전체 정보 가져오기
 	Map<String, Object> selectAll(String gender, int page, int ppr);
 
+	//회원 삭제
+	void deleteMember(int[] ymnos);
+
 }//BService

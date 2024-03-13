@@ -16,4 +16,7 @@ public interface BoardMapper {
 	//카운트 가져오기
 	int listCount(String gender);
 
+	//회원삭제
+	void deleteMember(int[] ymnos);
+
 }//BoardMapper

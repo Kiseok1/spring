@@ -42,4 +42,10 @@ public class BServiceImpl implements BService {
 		return map;
 	}
 
+	@Override
+	public void deleteMember(int[] ymnos) {
+		boardMapper.deleteMember(ymnos);
+		
+	}
+
 }//BServiceImpl
