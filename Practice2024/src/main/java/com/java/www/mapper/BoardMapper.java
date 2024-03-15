@@ -11,10 +11,10 @@ import com.java.www.dto.MemberDto;
 public interface BoardMapper {
 	
 	//전체 회원 가져오기
-	List<MemberDto> selectAll(String gender, int firstRow, int endRow);
+	List<MemberDto> selectAll(String gender, int firstRow, int endRow, String category, String searchWord);
 
 	//카운트 가져오기
-	int listCount(String gender);
+	int listCount(String gender, String category, String searchWord);
 
 	//회원삭제
 	void deleteMember(int[] ymnos);

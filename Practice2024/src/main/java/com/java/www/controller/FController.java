@@ -1,5 +1,7 @@
 package com.java.www.controller;
 
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -27,14 +29,14 @@ public class FController {
 	
 	@GetMapping("/")
 	public String index(Model model, @RequestParam(defaultValue = "all") String gender, @RequestParam(defaultValue = "1") int page,
-			@RequestParam (defaultValue = "") String category, @RequestParam(defaultValue = "") String searchWord, @RequestParam(defaultValue = "5") int ppr ) {
+			@RequestParam (defaultValue = "all") String category, @RequestParam(required = false) String searchWord, @RequestParam(defaultValue = "5") int ppr ) {
 		String result = "";
 		if(session.getAttribute("session_id")==null) {
 			result = "login";
 		} else {
 			result = "index";
 			System.out.println("con : "+gender);
-			Map<String, Object> map = bService.selectAll(gender,page,ppr);
+			Map<String, Object> map = bService.selectAll(gender,page,ppr,category,searchWord);
 			model.addAttribute("map",map);
 		}
 		return result;
@@ -90,5 +92,6 @@ public class FController {
 	public String mInsert() {
 		return "mInsert";
 	}
-
+	
+	
 }// FController(컨트롤러)

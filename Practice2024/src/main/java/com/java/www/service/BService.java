@@ -9,7 +9,7 @@ import com.java.www.dto.MemberDto;
 public interface BService {
 
 	//전체 정보 가져오기
-	Map<String, Object> selectAll(String gender, int page, int ppr);
+	Map<String, Object> selectAll(String gender, int page, int ppr, String category, String searchWord);
 
 	//회원 삭제
 	void deleteMember(int[] ymnos);

@@ -31,12 +31,12 @@
 			
 			$("#listDelBtn").click(function(){
 				if(confirm("삭제하시겠습니까?")){
-					var selected = [];
+					/* var selected = [];
 			        // 체크된 체크박스의 값을 배열에 추가한다
 			        $('input[type="checkbox"]:checked').each(function() {
 			            selected.push($(this).val());
 			        });
-			        console.log(selected);
+			        console.log(selected); */
 					$("#Frm").submit();
 				}//if(삭제확인)
 			});//#listInsertBtn(등록버튼)
@@ -94,7 +94,7 @@
 					</c:if>
 					<c:if test="${map.ppr!=5}">
 						<option value="5">5 개</option>
-					</c:if>
+					</c:if> 
 					<c:if test="${map.ppr==10}">
 						<option value="10" selected>10 개</option>
 					</c:if>
@@ -108,12 +108,32 @@
 						<option value="20">20 개</option>
 					</c:if>
 				</select>
-				<select id="searchCategory">
+				<select id="searchCategory" name="category">
+					<c:if test="${map.category=='all'}">
+					<option value="all" name="category" selected>전체</option>
+					</c:if>
+					<c:if test="${map.category!='all'}">
 					<option value="all" name="category">전체</option>
+					</c:if>
+					<c:if test="${map.category=='ymno'}">
+					<option value="ymno" name="category" selected>번호</option>
+					</c:if>
+					<c:if test="${map.category!='ymno'}">
 					<option value="ymno" name="category">번호</option>
-					<option value="btitle" name="category">제목</option>
+					</c:if>
+					<c:if test="${map.category=='btitle'}">
+					<option value="btitle" name="category" selected>이름</option>
+					</c:if>
+					<c:if test="${map.category!='btitle'}">
+					<option value="btitle" name="category">이름</option>
+					</c:if>
 				</select>
+				<c:if test="${map.searchWord==null}">
 				<input type="text" id="searchWord" name="searchWord" placeholder=" ※검색어를 입력하세요.">
+				</c:if>
+				<c:if test="${map.searchWord!=null}">
+				<input type="text" id="searchWord" name="searchWord" value="${map.searchWord}">
+				</c:if>
 				<input type="button" id="searchBtn" value="검 색">
 			</div>
 		</form>
@@ -173,9 +193,9 @@
 	  
 	  <!--페이지 넘버링 -->
 	  <ul id="PageNum" style="display: flex; list-style: none;">
-	  	<li class="num" onclick="location.href='/?page=1&gender=${map.gender}'"><i class="fa fa-backward" aria-hidden="true"></i></li>
+	  	<li class="num" onclick="location.href='/?page=1&gender=${map.gender}&ppr=${map.ppr}&category=${map.category}&searchWord=${map.searchWord}'"><i class="fa fa-backward" aria-hidden="true"></i></li>
 	  	<c:if test="${map.page!=1}">
-	  		<li class="num" onclick="location.href='/?page=${map.page-1}&gender=${map.gender}&ppr=${map.ppr}'"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
+	  		<li class="num" onclick="location.href='/?page=${map.page-1}&gender=${map.gender}&ppr=${map.ppr}&category=${map.category}&searchWord=${map.searchWord}'"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
 	  	</c:if>
 	  	<c:if test="${map.page==1}">
 	  		<li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
@@ -185,16 +205,16 @@
 		  		<li class="num" style="background: #14213d; color: yellow;">${i}</li>
 	  		</c:if>
 	  		<c:if test="${map.page!=i}">
-		  		<li class="num" onclick="location.href='/?page=${i}&gender=${map.gender}&ppr=${map.ppr}'">${i}</li>
+		  		<li class="num" onclick="location.href='/?page=${i}&gender=${map.gender}&ppr=${map.ppr}&category=${map.category}&searchWord=${map.searchWord}'">${i}</li>
 	  		</c:if>
 	  	</c:forEach>
 	  	<c:if test="${map.page!=map.maxBox}">
-		  	<li class="num" onclick="location.href='/?page=${map.page+1}&gender=${map.gender}&ppr=${map.ppr}'"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
+		  	<li class="num" onclick="location.href='/?page=${map.page+1}&gender=${map.gender}&ppr=${map.ppr}&category=${map.category}&searchWord=${map.searchWord}'"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
 	  	</c:if>
 	  	<c:if test="${map.page==map.maxBox}">
 		  	<li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
 	  	</c:if>
-	  	<li class="num" onclick="location.href='/?page=${map.maxBox}&gender=${map.gender}&ppr=${map.ppr}'"><i class="fa fa-forward" aria-hidden="true"></i></li>
+	  	<li class="num" onclick="location.href='/?page=${map.maxBox}&gender=${map.gender}&ppr=${map.ppr}&category=${map.category}&searchWord=${map.searchWord}'"><i class="fa fa-forward" aria-hidden="true"></i></li>
 	  </ul>
 	  <!--페이지 넘버링 끝 -->
 	<!--▣ 버튼 ▣ -->

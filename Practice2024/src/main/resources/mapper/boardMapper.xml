@@ -10,6 +10,15 @@
 		<if test="gender!='all'">
 		where gender=#{gender}
 		</if>
+		<if test="gender=='all'">
+		where (gender='Male' or gender='Female')
+		</if>
+		<if test="category!='all'">
+		and ${category} like '%'||#{searchWord}||'%' 
+		</if>
+		<if test="category=='all' and searchWord!=null">
+		and ( ymno like '%'||#{searchWord}||'%' or name like '%'||#{searchWord}||'%')
+		</if>
 		)
 		where rnum between #{firstRow} and #{endRow}
 	</select>
@@ -19,12 +28,22 @@
 		<if test="gender!='all'">
 		where gender=#{gender}
 		</if>
+		<if test="gender=='all'">
+		where (gender='Male' or gender='Female')
+		</if>
+		<if test="category!='all'">
+		and ${category} like '%'||#{searchWord}||'%' 
+		</if>
+		<if test="category=='all' and searchWord!=null">
+		and ( ymno like '%'||#{searchWord}||'%' or name like '%'||#{searchWord}||'%')
+		</if>
+		
 	</select>
 	
 	<delete id="deleteMember">
 		delete ymember where 
-		<foreach collection="ymnos" index="index" item="ymnos" open="(" separator="or" close=")">
-			ymno= #{ymnos}
+		<foreach collection="ymnos" index="index" item="ymnos1" open="(" separator="or" close=")">
+			ymno= #{ymnos1}
 		</foreach>
 	</delete>
 

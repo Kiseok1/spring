@@ -17,8 +17,12 @@ public class BServiceImpl implements BService {
 	@Autowired BoardMapper boardMapper;
 	
 	@Override
-	public Map<String, Object> selectAll(String gender, int page,int ppr) {
-		int listCount = boardMapper.listCount(gender);
+	public Map<String, Object> selectAll(String gender, int page,int ppr, String category, String searchWord) {
+		System.out.println("ser : "+category);
+		System.out.println("ser : "+searchWord);
+		
+		
+		int listCount = boardMapper.listCount(gender,category,searchWord);
 		int pagePerRow = ppr;
 		int numberingBox = 5;
 		int firstRow = (page-1)*pagePerRow+1;
@@ -30,7 +34,7 @@ public class BServiceImpl implements BService {
 			endBox=maxBox;
 		}
 		System.out.println(maxBox);
-		List<MemberDto> list = boardMapper.selectAll(gender,firstRow,endRow);
+		List<MemberDto> list = boardMapper.selectAll(gender,firstRow,endRow,category,searchWord);
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
 		map.put("firstBox", firstBox);
@@ -39,6 +43,8 @@ public class BServiceImpl implements BService {
 		map.put("page", page);
 		map.put("gender", gender);
 		map.put("ppr", ppr);
+		map.put("category", category);
+		map.put("searchWord", searchWord);
 		return map;
 	}
 
